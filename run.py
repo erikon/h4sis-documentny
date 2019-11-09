@@ -5,8 +5,6 @@ import numpy as np
 
 
 class DocumentNY:
-    accout_sid = 'AC23af71ef368cbdd5eb39b7b01b3a87ba'
-    auth_token = '6807aa1a94669b7b544ae4a59e4847d6'
     phone = '16072352907'
     data = None
 
