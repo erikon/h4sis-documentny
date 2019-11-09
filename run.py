@@ -1,5 +1,6 @@
 from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
+from fuzzywuzzy import process
 import pandas as pd
 import numpy as np
 
@@ -20,16 +21,16 @@ def sms_reply():
 
     if DocumentNY.data is None:
         DocumentNY.data = load_data()
-    print(DocumentNY.data)
+    # print(DocumentNY.data)
     input = request.form.getlist('Body')[0]
-    print(input)
+    # print(input)
 
     # Get Wage Theft information from DocumentNY Data
     search_result = search_data(input)
 
     # Text Message Response
     resp = MessagingResponse()
-    resp.message("You texted us: '" + input + "'")
+    resp.message(search_result)
 
     return str(resp)
 
@@ -38,8 +39,15 @@ def load_data():
 
 def search_data(input):
     local_data = DocumentNY.data    # DataFrame Format
+    list_trade_names = list(local_data['trade_nm'])
+    best_match = process.extractOne(input,list_trade_names)[0]
+    index = list_trade_names.index(best_match)
+    relevant_data = local_data.iloc[index]
+    print(relevant_data)
 
-    return "fetching response"
+    # Extract relevant columns from this row
+
+    return relevant_data['trade_nm']
 
 if __name__ == "__main__":
     doc = DocumentNY()
