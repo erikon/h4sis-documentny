@@ -23,16 +23,23 @@ def sms_reply():
     print(DocumentNY.data)
     input = request.form.getlist('Body')[0]
     print(input)
-    # Start our response
-    resp = MessagingResponse()
 
-    # Return data as a response
+    # Get Wage Theft information from DocumentNY Data
+    search_result = search_data(input)
+
+    # Text Message Response
+    resp = MessagingResponse()
     resp.message("You texted us: '" + input + "'")
 
     return str(resp)
 
 def load_data():
     return pd.read_excel('./data/Wage theft all zipcodes NYC.xlsx')
+
+def search_data(input):
+    local_data = DocumentNY.data    # DataFrame Format
+
+    return "fetching response"
 
 if __name__ == "__main__":
     doc = DocumentNY()
