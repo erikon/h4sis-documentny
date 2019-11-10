@@ -45,9 +45,14 @@ def search_data(input):
     relevant_data = local_data.iloc[index]
     print(relevant_data)
 
-    # Extract relevant columns from this row
+    num_violated_cases = relevant_data['case_violtn_cnt']
+    cmp_assd_cnt = relevant_data['cmp_assd_cnt']   # civil money penalty assessed count
 
-    return relevant_data['trade_nm']
+    resp_msg = "Trade Name: " + relevant_data['trade_nm'] + "\n" + \
+                "Number of Violated Cases: %.2f\n" % num_violated_cases + \
+                "Civil Money Penalty Assessed Count: %.2f" % relevant_data['cmp_assd_cnt']
+
+    return resp_msg
 
 if __name__ == "__main__":
     doc = DocumentNY()
