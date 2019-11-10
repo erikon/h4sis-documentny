@@ -1,15 +1,21 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from twilio.twiml.messaging_response import MessagingResponse
 from fuzzywuzzy import process
 import pandas as pd
 import numpy as np
-
+import json
 
 class DocumentNY:
     phone = '16072352907'
     data = None
 
 app = Flask(__name__)
+
+@app.route("/get_data", methods=["GET"])
+def get_data():
+    with open('data/wage_theft_data_cleaned.json') as json_file:
+        data = json.load(json_file)
+        return jsonify(data)
 
 @app.route("/sms", methods=['GET', 'POST'])
 def sms_reply():
