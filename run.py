@@ -42,7 +42,12 @@ def load_data():
 def search_data(input):
     local_data = DocumentNY.data    # DataFrame Format
     list_trade_names = list(local_data['trade_nm'])
-    best_match = process.extractOne(input,list_trade_names)[0]
+    best_match_tuple = process.extractOne(input,list_trade_names)
+    print(best_match_tuple)
+    best_match_score = best_match_tuple[1]
+    best_match = best_match_tuple[0]
+    if best_match_score == 0:
+        return "No match found for: " + input + "\nPlease try again."
     index = list_trade_names.index(best_match)
     relevant_data = local_data.iloc[index]
     # print(relevant_data)
