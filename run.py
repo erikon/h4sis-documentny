@@ -39,12 +39,12 @@ def search_data(input):
     best_match = process.extractOne(input,list_trade_names)[0]
     index = list_trade_names.index(best_match)
     relevant_data = local_data.iloc[index]
-    print(relevant_data)
+    # print(relevant_data)
 
     num_violated_cases = relevant_data['case_violtn_cnt']
     cmp_assd_cnt = relevant_data['cmp_assd_cnt']   # civil money penalty assessed count
 
-    resp_msg = "Trade Name: " + relevant_data['trade_nm'] + "\n" + \
+    resp_msg = "\nTrade Name: " + relevant_data['trade_nm'] + "\n" + \
                 "Number of Violated Cases: %.2f\n" % num_violated_cases + \
                 "Civil Money Penalty Assessed Count: %.2f" % relevant_data['cmp_assd_cnt']
 
